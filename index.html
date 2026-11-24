@@ -23,7 +23,7 @@ h2{color:#07558d}
 input,select,textarea{width:100%;padding:14px;margin:8px 0;border:1px solid #ccd5df;border-radius:8px;font-size:16px}
 button{width:100%;padding:14px;background:#087b51;color:white;border:0;border-radius:8px;font-size:17px;font-weight:bold}
 button:disabled{opacity:.6}
-#message{font-weight:bold;text-align:center}
+#message{font-weight:bold;text-align:center;overflow-wrap:anywhere}
 footer{background:#052c4e;color:white;text-align:center;padding:22px}
 </style>
 </head>
@@ -114,73 +114,104 @@ footer{background:#052c4e;color:white;text-align:center;padding:22px}
 </footer>
 
 <script type="module">
-import { initializeApp }
+
+import {initializeApp}
 from "https://www.gstatic.com/firebasejs/13.1.0/firebase-app.js";
 
 import {
 getFirestore,
 collection,
-addDoc,
+doc,
+writeBatch,
 serverTimestamp
-}
-from "https://www.gstatic.com/firebasejs/13.1.0/firebase-firestore.js";
+} from "https://www.gstatic.com/firebasejs/13.1.0/firebase-firestore.js";
 
 const firebaseConfig = {
-apiKey: "AIzaSyBvDv-zJbn5tgFrTt0Y2XHhagRqpL1YPOo",
-authDomain: "akash-sanitary-18f8e.firebaseapp.com",
-projectId: "akash-sanitary-18f8e",
-storageBucket: "akash-sanitary-18f8e.firebasestorage.app",
-messagingSenderId: "356604373846",
-appId: "1:356604373846:web:d12ac29c648258668b44f7"
+apiKey:"AIzaSyBvDv-zJbn5tgFrTt0Y2XHhagRqpL1YPOo",
+authDomain:"akash-sanitary-18f8e.firebaseapp.com",
+projectId:"akash-sanitary-18f8e",
+storageBucket:"akash-sanitary-18f8e.firebasestorage.app",
+messagingSenderId:"356604373846",
+appId:"1:356604373846:web:d12ac29c648258668b44f7"
 };
 
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
+const app=initializeApp(firebaseConfig);
+const db=getFirestore(app);
 
-const form = document.getElementById("bookingForm");
-const btn = document.getElementById("submitBtn");
-const message = document.getElementById("message");
+const form=document.getElementById("bookingForm");
+const btn=document.getElementById("submitBtn");
+const message=document.getElementById("message");
 
-form.addEventListener("submit", async function(e) {
+form.addEventListener("submit",async function(e){
+
 e.preventDefault();
 
-btn.disabled = true;
-btn.textContent = "পাঠানো হচ্ছে...";
-message.textContent = "";
+btn.disabled=true;
+btn.textContent="পাঠানো হচ্ছে...";
+message.textContent="";
 
-const booking = {
-name: document.getElementById("name").value.trim(),
-phone: document.getElementById("phone").value.trim(),
-address: document.getElementById("address").value.trim(),
-service: document.getElementById("service").value,
-date: document.getElementById("date").value,
-details: document.getElementById("details").value.trim(),
-status: "নতুন বুকিং",
-workDate: "",
-createdAt: serverTimestamp()
+const booking={
+name:document.getElementById("name").value.trim(),
+phone:document.getElementById("phone").value.trim(),
+address:document.getElementById("address").value.trim(),
+service:document.getElementById("service").value,
+date:document.getElementById("date").value,
+details:document.getElementById("details").value.trim(),
+status:"নতুন বুকিং",
+workDate:"",
+createdAt:serverTimestamp()
 };
 
-try {
-if (!booking.name || !booking.phone || !booking.address || !booking.service || !booking.date) {
+try{
+
+if(
+!booking.name ||
+!booking.phone ||
+!booking.address ||
+!booking.service ||
+!booking.date
+){
 throw new Error("সব প্রয়োজনীয় তথ্য পূরণ করুন");
 }
 
-const ref = await addDoc(collection(db, "bookings"), booking);
+// একই ID দিয়ে দুইটি ডকুমেন্ট তৈরি
+const bookingRef=doc(collection(db,"bookings"));
+const publicRef=doc(db,"publicBookings",bookingRef.id);
 
-message.style.color = "green";
-message.textContent = "বুকিং সফল হয়েছে! আপনার বুকিং নম্বর: " + ref.id;
+// দুইটি ডকুমেন্ট একসঙ্গে সংরক্ষণ
+const batch=writeBatch(db);
+
+batch.set(bookingRef,booking);
+
+batch.set(publicRef,{
+status:"নতুন বুকিং",
+workDate:""
+});
+
+await batch.commit();
+
+message.style.color="green";
+message.textContent=
+"বুকিং সফল হয়েছে! আপনার বুকিং নম্বর: "+bookingRef.id+
+" । নম্বরটি সংরক্ষণ করুন।";
 
 form.reset();
 
-} catch(error) {
+}catch(error){
+
 console.error(error);
-message.style.color = "red";
-message.textContent = "বুকিং হয়নি। Firebase Database ও Rules পরীক্ষা করুন।";
+
+message.style.color="red";
+message.textContent=
+"বুকিং হয়নি: "+error.message;
+
 }
 
-btn.disabled = false;
-btn.textContent = "বুকিং পাঠান";
+btn.disabled=false;
+btn.textContent="বুকিং পাঠান";
+
 });
+
 </script>
 
 </body>
