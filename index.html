@@ -3,33 +3,26 @@
 <html lang="bn">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <title>আকাশ স্যানিটারি ও টাইলস মিস্ত্রি</title>
-<meta name="description" content="নাটোর ও লালপুরে স্যানিটারি, পানির পাইপলাইন ও টাইলস মিস্ত্রির কাজের বুকিং করুন।">
 <style>
 *{box-sizing:border-box}
-body{margin:0;font-family:Arial,sans-serif;background:#f3f6fa;color:#172033}
-header{background:#073b68;color:white;text-align:center;padding:28px 15px}
-header h1{font-size:25px;margin:0 0 10px}
-header p{margin:0}
-nav{background:#052c4e;padding:13px;text-align:center}
-nav a{color:white;text-decoration:none;margin:10px;font-weight:bold}
-.hero{padding:45px 20px;text-align:center;background:linear-gradient(135deg,#07558d,#087e9b);color:white}
-.hero h2{font-size:28px}
-.btn{display:inline-block;background:#ffb900;color:#172033;padding:13px 22px;border-radius:8px;text-decoration:none;font-weight:bold;margin:8px}
-.container{max-width:900px;margin:25px auto;padding:15px}
-.card{background:white;padding:22px;margin-bottom:18px;border-radius:12px;box-shadow:0 3px 12px #0001}
-h2{color:#07558d}
+body{margin:0;font-family:Arial;background:#f1f5f9;color:#172033}
+header{background:#073b68;color:white;text-align:center;padding:25px 12px}
+.hero{background:linear-gradient(135deg,#07558d,#087e9b);color:white;text-align:center;padding:40px 15px}
+.container{max-width:850px;margin:20px auto;padding:12px}
+.card{background:white;padding:20px;border-radius:12px;margin-bottom:18px;box-shadow:0 3px 12px #0001}
 input,select,textarea{width:100%;padding:13px;margin:8px 0;border:1px solid #ccd5df;border-radius:7px;font-size:16px}
-button{width:100%;padding:14px;background:#087b51;color:white;border:0;border-radius:8px;font-size:17px;font-weight:bold}
-footer{background:#052c4e;color:white;text-align:center;padding:22px}
+button,.btn{display:inline-block;width:100%;padding:14px;background:#087b51;color:white;border:0;border-radius:8px;font-weight:bold;text-decoration:none;text-align:center;cursor:pointer}
+nav{background:#052c4e;text-align:center;padding:13px}
+nav a{color:white;text-decoration:none;margin:8px}
+footer{background:#052c4e;color:white;text-align:center;padding:20px}
 </style>
 </head>
 <body>
 
 <header>
-<h1>আকাশ স্যানিটারি ও টাইলস মিস্ত্রি</h1>
-<p>বিশ্বস্ত স্যানিটারি ও টাইলস কাজের সেবা</p>
+<h2>আকাশ স্যানিটারি ও টাইলস মিস্ত্রি</h2>
 <p>নাটোর | লালপুর</p>
 </header>
 
@@ -42,9 +35,8 @@ footer{background:#052c4e;color:white;text-align:center;padding:22px}
 
 <section class="hero" id="home">
 <h2>আপনার বাড়ির কাজ, আমাদের দায়িত্ব</h2>
-<p>স্যানিটারি, পানির পাইপলাইন ও টাইলসের কাজের জন্য যোগাযোগ করুন।</p>
+<p>স্যানিটারি, পানির পাইপলাইন ও টাইলসের কাজের নির্ভরযোগ্য সেবা।</p>
 <a class="btn" href="#booking">কাজ বুকিং করুন</a>
-<a class="btn" href="tel:01824697173">কল করুন</a>
 </section>
 
 <div class="container">
@@ -53,20 +45,20 @@ footer{background:#052c4e;color:white;text-align:center;padding:22px}
 <h2>আমাদের সেবাসমূহ</h2>
 <ul>
 <li>স্যানিটারি ফিটিংস</li>
-<li>পানির পাইপলাইন স্থাপন</li>
-<li>বাথরুমের কাজ</li>
+<li>পানির পাইপলাইন</li>
 <li>টাইলস লাগানো</li>
-<li>নতুন বাড়ির স্যানিটারি কাজ</li>
+<li>বাথরুমের কাজ</li>
 <li>মেরামতের কাজ</li>
 </ul>
 </section>
 
 <section class="card" id="booking">
-<h2>অনলাইন কাজের বুকিং</h2>
+<h2>অনলাইন বুকিং ফরম</h2>
+
 <form id="bookingForm">
 <input id="name" placeholder="আপনার নাম" required>
 <input id="phone" type="tel" placeholder="মোবাইল নম্বর" required>
-<input id="address" placeholder="আপনার সম্পূর্ণ ঠিকানা" required>
+<input id="address" placeholder="সম্পূর্ণ ঠিকানা" required>
 
 <select id="service" required>
 <option value="">কাজ নির্বাচন করুন</option>
@@ -78,8 +70,10 @@ footer{background:#052c4e;color:white;text-align:center;padding:22px}
 </select>
 
 <input id="date" type="date" required>
-<textarea id="details" placeholder="কাজের বিস্তারিত লিখুন"></textarea>
-<button type="submit">বুকিং পাঠান</button>
+<textarea id="details" placeholder="কাজের বিস্তারিত"></textarea>
+
+<button id="submitBtn" type="submit">বুকিং পাঠান</button>
+<p id="message"></p>
 </form>
 </section>
 
@@ -94,23 +88,64 @@ footer{background:#052c4e;color:white;text-align:center;padding:22px}
 
 <footer>
 <p>© 2026 আকাশ স্যানিটারি ও টাইলস মিস্ত্রি</p>
-<p>সেবায় বিশ্বস্ততা আমাদের অঙ্গীকার</p>
 </footer>
 
-<script>
-document.getElementById("bookingForm").addEventListener("submit",function(e){
+<script type="module">
+import { initializeApp }
+from "https://www.gstatic.com/firebasejs/13.1.0/firebase-app.js";
+
+import {
+getFirestore,collection,addDoc,serverTimestamp
+} from "https://www.gstatic.com/firebasejs/13.1.0/firebase-firestore.js";
+
+// নিজের Firebase Config বসাও
+const firebaseConfig = {
+apiKey: "YOUR_API_KEY",
+authDomain: "YOUR_PROJECT.firebaseapp.com",
+projectId: "YOUR_PROJECT_ID",
+storageBucket: "YOUR_PROJECT.appspot.com",
+messagingSenderId: "YOUR_SENDER_ID",
+appId: "YOUR_APP_ID"
+};
+
+const app=initializeApp(firebaseConfig);
+const db=getFirestore(app);
+
+const form=document.getElementById("bookingForm");
+const message=document.getElementById("message");
+const btn=document.getElementById("submitBtn");
+
+form.addEventListener("submit",async e=>{
 e.preventDefault();
+btn.disabled=true;
+btn.textContent="পাঠানো হচ্ছে...";
+message.textContent="";
 
-let message =
-"নতুন বুকিং%0A"+
-"নাম: "+encodeURIComponent(document.getElementById("name").value)+"%0A"+
-"ফোন: "+encodeURIComponent(document.getElementById("phone").value)+"%0A"+
-"ঠিকানা: "+encodeURIComponent(document.getElementById("address").value)+"%0A"+
-"কাজ: "+encodeURIComponent(document.getElementById("service").value)+"%0A"+
-"তারিখ: "+encodeURIComponent(document.getElementById("date").value)+"%0A"+
-"বিস্তারিত: "+encodeURIComponent(document.getElementById("details").value);
+try{
+await addDoc(collection(db,"bookings"),{
+name:document.getElementById("name").value.trim(),
+phone:document.getElementById("phone").value.trim(),
+address:document.getElementById("address").value.trim(),
+service:document.getElementById("service").value,
+date:document.getElementById("date").value,
+details:document.getElementById("details").value.trim(),
+status:"নতুন বুকিং",
+workDate:"",
+createdAt:serverTimestamp()
+});
 
-window.open("https://wa.me/8801824697173?text="+message,"_blank");
+message.textContent="আপনার বুকিং সফলভাবে জমা হয়েছে!";
+message.style.color="green";
+form.reset();
+
+}catch(error){
+message.textContent="বুকিং হয়নি। Firebase Config ও Rules পরীক্ষা করুন।";
+message.style.color="red";
+console.error(error);
+}
+
+btn.disabled=false;
+btn.textContent="বুকিং পাঠান";
 });
 </script>
 
