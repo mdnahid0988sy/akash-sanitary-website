@@ -3,26 +3,36 @@
 <html lang="bn">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>আকাশ স্যানিটারি ও টাইলস মিস্ত্রি</title>
+<meta name="description" content="নাটোর ও লালপুরে স্যানিটারি, পাইপলাইন ও টাইলস কাজের অনলাইন বুকিং।">
+
 <style>
 *{box-sizing:border-box}
-body{margin:0;font-family:Arial;background:#f1f5f9;color:#172033}
+body{margin:0;font-family:Arial,sans-serif;background:#f2f6fa;color:#172033}
 header{background:#073b68;color:white;text-align:center;padding:25px 12px}
-.hero{background:linear-gradient(135deg,#07558d,#087e9b);color:white;text-align:center;padding:40px 15px}
-.container{max-width:850px;margin:20px auto;padding:12px}
-.card{background:white;padding:20px;border-radius:12px;margin-bottom:18px;box-shadow:0 3px 12px #0001}
-input,select,textarea{width:100%;padding:13px;margin:8px 0;border:1px solid #ccd5df;border-radius:7px;font-size:16px}
-button,.btn{display:inline-block;width:100%;padding:14px;background:#087b51;color:white;border:0;border-radius:8px;font-weight:bold;text-decoration:none;text-align:center;cursor:pointer}
-nav{background:#052c4e;text-align:center;padding:13px}
-nav a{color:white;text-decoration:none;margin:8px}
-footer{background:#052c4e;color:white;text-align:center;padding:20px}
+header h1{margin:0 0 10px;font-size:24px}
+nav{background:#052c4e;padding:14px;text-align:center}
+nav a{color:white;text-decoration:none;margin:8px;font-weight:bold}
+.hero{background:linear-gradient(135deg,#07558d,#078a9c);color:white;text-align:center;padding:45px 18px}
+.hero h2{font-size:28px}
+.btn{display:inline-block;background:#ffbd22;color:#172033;padding:13px 22px;border-radius:8px;text-decoration:none;font-weight:bold;margin-top:10px}
+.container{max-width:900px;margin:25px auto;padding:12px}
+.card{background:white;padding:22px;border-radius:13px;margin-bottom:20px;box-shadow:0 3px 12px #0001}
+h2{color:#07558d}
+input,select,textarea{width:100%;padding:14px;margin:8px 0;border:1px solid #ccd5df;border-radius:8px;font-size:16px}
+button{width:100%;padding:14px;background:#087b51;color:white;border:0;border-radius:8px;font-size:17px;font-weight:bold}
+button:disabled{opacity:.6}
+#message{font-weight:bold;text-align:center}
+footer{background:#052c4e;color:white;text-align:center;padding:22px}
 </style>
 </head>
+
 <body>
 
 <header>
-<h2>আকাশ স্যানিটারি ও টাইলস মিস্ত্রি</h2>
+<h1>আকাশ স্যানিটারি ও টাইলস মিস্ত্রি</h1>
+<p>বিশ্বস্ত স্যানিটারি ও টাইলস কাজের সেবা</p>
 <p>নাটোর | লালপুর</p>
 </header>
 
@@ -35,8 +45,8 @@ footer{background:#052c4e;color:white;text-align:center;padding:20px}
 
 <section class="hero" id="home">
 <h2>আপনার বাড়ির কাজ, আমাদের দায়িত্ব</h2>
-<p>স্যানিটারি, পানির পাইপলাইন ও টাইলসের কাজের নির্ভরযোগ্য সেবা।</p>
-<a class="btn" href="#booking">কাজ বুকিং করুন</a>
+<p>স্যানিটারি, পানির পাইপলাইন ও টাইলসের কাজের জন্য বুকিং করুন।</p>
+<a class="btn" href="#booking">এখনই বুকিং করুন</a>
 </section>
 
 <div class="container">
@@ -45,21 +55,29 @@ footer{background:#052c4e;color:white;text-align:center;padding:20px}
 <h2>আমাদের সেবাসমূহ</h2>
 <ul>
 <li>স্যানিটারি ফিটিংস</li>
-<li>পানির পাইপলাইন</li>
-<li>টাইলস লাগানো</li>
+<li>পানির পাইপলাইন স্থাপন</li>
 <li>বাথরুমের কাজ</li>
+<li>টাইলস লাগানো</li>
+<li>নতুন বাড়ির স্যানিটারি কাজ</li>
 <li>মেরামতের কাজ</li>
 </ul>
 </section>
 
 <section class="card" id="booking">
-<h2>অনলাইন বুকিং ফরম</h2>
+<h2>অনলাইন বুকিং করুন</h2>
 
 <form id="bookingForm">
-<input id="name" placeholder="আপনার নাম" required>
-<input id="phone" type="tel" placeholder="মোবাইল নম্বর" required>
-<input id="address" placeholder="সম্পূর্ণ ঠিকানা" required>
 
+<label>আপনার নাম</label>
+<input id="name" maxlength="80" required placeholder="নাম লিখুন">
+
+<label>মোবাইল নম্বর</label>
+<input id="phone" type="tel" maxlength="20" required placeholder="মোবাইল নম্বর">
+
+<label>সম্পূর্ণ ঠিকানা</label>
+<input id="address" maxlength="250" required placeholder="গ্রাম, উপজেলা, জেলা">
+
+<label>কাজের ধরন</label>
 <select id="service" required>
 <option value="">কাজ নির্বাচন করুন</option>
 <option>স্যানিটারি কাজ</option>
@@ -69,16 +87,20 @@ footer{background:#052c4e;color:white;text-align:center;padding:20px}
 <option>মেরামতের কাজ</option>
 </select>
 
+<label>আপনি কোন তারিখে কাজ চান?</label>
 <input id="date" type="date" required>
-<textarea id="details" placeholder="কাজের বিস্তারিত"></textarea>
+
+<label>কাজের বিস্তারিত</label>
+<textarea id="details" maxlength="1000" placeholder="কাজ সম্পর্কে লিখুন"></textarea>
 
 <button id="submitBtn" type="submit">বুকিং পাঠান</button>
-<p id="message"></p>
+<p id="message" aria-live="polite"></p>
+
 </form>
 </section>
 
 <section class="card" id="contact">
-<h2>যোগাযোগ</h2>
+<h2>যোগাযোগ করুন</h2>
 <p>ফোন: 01824697173</p>
 <p>ঠিকানা: রামকৃষ্ণপুর মধ্যপাড়া, লালপুর, নাটোর</p>
 <a class="btn" href="tel:01824697173">ফোন করুন</a>
@@ -88,6 +110,7 @@ footer{background:#052c4e;color:white;text-align:center;padding:20px}
 
 <footer>
 <p>© 2026 আকাশ স্যানিটারি ও টাইলস মিস্ত্রি</p>
+<p>সেবায় বিশ্বস্ততা আমাদের অঙ্গীকার</p>
 </footer>
 
 <script type="module">
@@ -95,57 +118,68 @@ import { initializeApp }
 from "https://www.gstatic.com/firebasejs/13.1.0/firebase-app.js";
 
 import {
-getFirestore,collection,addDoc,serverTimestamp
-} from "https://www.gstatic.com/firebasejs/13.1.0/firebase-firestore.js";
+getFirestore,
+collection,
+addDoc,
+serverTimestamp
+}
+from "https://www.gstatic.com/firebasejs/13.1.0/firebase-firestore.js";
 
-// নিজের Firebase Config বসাও
 const firebaseConfig = {
-apiKey: "YOUR_API_KEY",
-authDomain: "YOUR_PROJECT.firebaseapp.com",
-projectId: "YOUR_PROJECT_ID",
-storageBucket: "YOUR_PROJECT.appspot.com",
-messagingSenderId: "YOUR_SENDER_ID",
-appId: "YOUR_APP_ID"
+apiKey: "AIzaSyBvDv-zJbn5tgFrTt0Y2XHhagRqpL1YPOo",
+authDomain: "akash-sanitary-18f8e.firebaseapp.com",
+projectId: "akash-sanitary-18f8e",
+storageBucket: "akash-sanitary-18f8e.firebasestorage.app",
+messagingSenderId: "356604373846",
+appId: "1:356604373846:web:d12ac29c648258668b44f7"
 };
 
-const app=initializeApp(firebaseConfig);
-const db=getFirestore(app);
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
 
-const form=document.getElementById("bookingForm");
-const message=document.getElementById("message");
-const btn=document.getElementById("submitBtn");
+const form = document.getElementById("bookingForm");
+const btn = document.getElementById("submitBtn");
+const message = document.getElementById("message");
 
-form.addEventListener("submit",async e=>{
+form.addEventListener("submit", async function(e) {
 e.preventDefault();
-btn.disabled=true;
-btn.textContent="পাঠানো হচ্ছে...";
-message.textContent="";
 
-try{
-await addDoc(collection(db,"bookings"),{
-name:document.getElementById("name").value.trim(),
-phone:document.getElementById("phone").value.trim(),
-address:document.getElementById("address").value.trim(),
-service:document.getElementById("service").value,
-date:document.getElementById("date").value,
-details:document.getElementById("details").value.trim(),
-status:"নতুন বুকিং",
-workDate:"",
-createdAt:serverTimestamp()
-});
+btn.disabled = true;
+btn.textContent = "পাঠানো হচ্ছে...";
+message.textContent = "";
 
-message.textContent="আপনার বুকিং সফলভাবে জমা হয়েছে!";
-message.style.color="green";
-form.reset();
+const booking = {
+name: document.getElementById("name").value.trim(),
+phone: document.getElementById("phone").value.trim(),
+address: document.getElementById("address").value.trim(),
+service: document.getElementById("service").value,
+date: document.getElementById("date").value,
+details: document.getElementById("details").value.trim(),
+status: "নতুন বুকিং",
+workDate: "",
+createdAt: serverTimestamp()
+};
 
-}catch(error){
-message.textContent="বুকিং হয়নি। Firebase Config ও Rules পরীক্ষা করুন।";
-message.style.color="red";
-console.error(error);
+try {
+if (!booking.name || !booking.phone || !booking.address || !booking.service || !booking.date) {
+throw new Error("সব প্রয়োজনীয় তথ্য পূরণ করুন");
 }
 
-btn.disabled=false;
-btn.textContent="বুকিং পাঠান";
+const ref = await addDoc(collection(db, "bookings"), booking);
+
+message.style.color = "green";
+message.textContent = "বুকিং সফল হয়েছে! আপনার বুকিং নম্বর: " + ref.id;
+
+form.reset();
+
+} catch(error) {
+console.error(error);
+message.style.color = "red";
+message.textContent = "বুকিং হয়নি। Firebase Database ও Rules পরীক্ষা করুন।";
+}
+
+btn.disabled = false;
+btn.textContent = "বুকিং পাঠান";
 });
 </script>
 
