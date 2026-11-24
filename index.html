@@ -1,0 +1,118 @@
+
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>আকাশ স্যানিটারি ও টাইলস মিস্ত্রি</title>
+<meta name="description" content="নাটোর ও লালপুরে স্যানিটারি, পানির পাইপলাইন ও টাইলস মিস্ত্রির কাজের বুকিং করুন।">
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,sans-serif;background:#f3f6fa;color:#172033}
+header{background:#073b68;color:white;text-align:center;padding:28px 15px}
+header h1{font-size:25px;margin:0 0 10px}
+header p{margin:0}
+nav{background:#052c4e;padding:13px;text-align:center}
+nav a{color:white;text-decoration:none;margin:10px;font-weight:bold}
+.hero{padding:45px 20px;text-align:center;background:linear-gradient(135deg,#07558d,#087e9b);color:white}
+.hero h2{font-size:28px}
+.btn{display:inline-block;background:#ffb900;color:#172033;padding:13px 22px;border-radius:8px;text-decoration:none;font-weight:bold;margin:8px}
+.container{max-width:900px;margin:25px auto;padding:15px}
+.card{background:white;padding:22px;margin-bottom:18px;border-radius:12px;box-shadow:0 3px 12px #0001}
+h2{color:#07558d}
+input,select,textarea{width:100%;padding:13px;margin:8px 0;border:1px solid #ccd5df;border-radius:7px;font-size:16px}
+button{width:100%;padding:14px;background:#087b51;color:white;border:0;border-radius:8px;font-size:17px;font-weight:bold}
+footer{background:#052c4e;color:white;text-align:center;padding:22px}
+</style>
+</head>
+<body>
+
+<header>
+<h1>আকাশ স্যানিটারি ও টাইলস মিস্ত্রি</h1>
+<p>বিশ্বস্ত স্যানিটারি ও টাইলস কাজের সেবা</p>
+<p>নাটোর | লালপুর</p>
+</header>
+
+<nav>
+<a href="#home">হোম</a>
+<a href="#services">সেবাসমূহ</a>
+<a href="#booking">বুকিং</a>
+<a href="#contact">যোগাযোগ</a>
+</nav>
+
+<section class="hero" id="home">
+<h2>আপনার বাড়ির কাজ, আমাদের দায়িত্ব</h2>
+<p>স্যানিটারি, পানির পাইপলাইন ও টাইলসের কাজের জন্য যোগাযোগ করুন।</p>
+<a class="btn" href="#booking">কাজ বুকিং করুন</a>
+<a class="btn" href="tel:01824697173">কল করুন</a>
+</section>
+
+<div class="container">
+
+<section class="card" id="services">
+<h2>আমাদের সেবাসমূহ</h2>
+<ul>
+<li>স্যানিটারি ফিটিংস</li>
+<li>পানির পাইপলাইন স্থাপন</li>
+<li>বাথরুমের কাজ</li>
+<li>টাইলস লাগানো</li>
+<li>নতুন বাড়ির স্যানিটারি কাজ</li>
+<li>মেরামতের কাজ</li>
+</ul>
+</section>
+
+<section class="card" id="booking">
+<h2>অনলাইন কাজের বুকিং</h2>
+<form id="bookingForm">
+<input id="name" placeholder="আপনার নাম" required>
+<input id="phone" type="tel" placeholder="মোবাইল নম্বর" required>
+<input id="address" placeholder="আপনার সম্পূর্ণ ঠিকানা" required>
+
+<select id="service" required>
+<option value="">কাজ নির্বাচন করুন</option>
+<option>স্যানিটারি কাজ</option>
+<option>পানির পাইপলাইন</option>
+<option>টাইলস লাগানো</option>
+<option>বাথরুমের কাজ</option>
+<option>মেরামতের কাজ</option>
+</select>
+
+<input id="date" type="date" required>
+<textarea id="details" placeholder="কাজের বিস্তারিত লিখুন"></textarea>
+<button type="submit">বুকিং পাঠান</button>
+</form>
+</section>
+
+<section class="card" id="contact">
+<h2>যোগাযোগ</h2>
+<p>ফোন: 01824697173</p>
+<p>ঠিকানা: রামকৃষ্ণপুর মধ্যপাড়া, লালপুর, নাটোর</p>
+<a class="btn" href="tel:01824697173">ফোন করুন</a>
+</section>
+
+</div>
+
+<footer>
+<p>© 2026 আকাশ স্যানিটারি ও টাইলস মিস্ত্রি</p>
+<p>সেবায় বিশ্বস্ততা আমাদের অঙ্গীকার</p>
+</footer>
+
+<script>
+document.getElementById("bookingForm").addEventListener("submit",function(e){
+e.preventDefault();
+
+let message =
+"নতুন বুকিং%0A"+
+"নাম: "+encodeURIComponent(document.getElementById("name").value)+"%0A"+
+"ফোন: "+encodeURIComponent(document.getElementById("phone").value)+"%0A"+
+"ঠিকানা: "+encodeURIComponent(document.getElementById("address").value)+"%0A"+
+"কাজ: "+encodeURIComponent(document.getElementById("service").value)+"%0A"+
+"তারিখ: "+encodeURIComponent(document.getElementById("date").value)+"%0A"+
+"বিস্তারিত: "+encodeURIComponent(document.getElementById("details").value);
+
+window.open("https://wa.me/8801824697173?text="+message,"_blank");
+});
+</script>
+
+</body>
+</html>
