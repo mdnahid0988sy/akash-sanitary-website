@@ -1,0 +1,195 @@
+
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Admin Panel - Akash Sanitary</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial;background:#eef3f8;color:#172033}
+header{background:#073b68;color:white;padding:20px;text-align:center}
+.container{max-width:950px;margin:20px auto;padding:12px}
+.card{background:white;padding:20px;border-radius:12px;margin-bottom:18px;box-shadow:0 3px 12px #0001}
+input,select{width:100%;padding:12px;margin:8px 0;border:1px solid #ccc;border-radius:7px}
+button{padding:12px;border:0;border-radius:7px;background:#07558d;color:white;font-weight:bold;cursor:pointer;margin:4px}
+.logout{background:#bd3030}
+.booking{border:1px solid #ddd;padding:15px;border-radius:10px;margin:12px 0}
+.hidden{display:none}
+small{color:#555}
+</style>
+</head>
+<body>
+
+<header>
+<h2>আকাশ স্যানিটারি</h2>
+<p>ADMIN DASHBOARD</p>
+</header>
+
+<div class="container">
+
+<div class="card" id="loginBox">
+<h3>অ্যাডমিন লগইন</h3>
+<input id="email" type="email" placeholder="Admin Email">
+<input id="password" type="password" placeholder="Password">
+<button onclick="login()">Login</button>
+<p id="loginMsg"></p>
+</div>
+
+<div id="dashboard" class="hidden">
+<div class="card">
+<h3>অ্যাডমিন প্যানেল</h3>
+<button class="logout" onclick="logout()">Logout</button>
+<h3>মোট বুকিং: <span id="total">0</span></h3>
+</div>
+
+<div class="card">
+<h3>সকল বুকিং</h3>
+<div id="bookings">লোড হচ্ছে...</div>
+</div>
+</div>
+
+</div>
+
+<script type="module">
+import { initializeApp }
+from "https://www.gstatic.com/firebasejs/13.1.0/firebase-app.js";
+
+import {
+getAuth,onAuthStateChanged,signInWithEmailAndPassword,signOut
+} from "https://www.gstatic.com/firebasejs/13.1.0/firebase-auth.js";
+
+import {
+getFirestore,collection,onSnapshot,doc,updateDoc,deleteDoc,query,orderBy
+} from "https://www.gstatic.com/firebasejs/13.1.0/firebase-firestore.js";
+
+// নিজের Firebase Config বসাও
+const firebaseConfig = {
+apiKey: "YOUR_API_KEY",
+authDomain: "YOUR_PROJECT.firebaseapp.com",
+projectId: "YOUR_PROJECT_ID",
+storageBucket: "YOUR_PROJECT.appspot.com",
+messagingSenderId: "YOUR_SENDER_ID",
+appId: "YOUR_APP_ID"
+};
+
+const ADMIN_UID = "iMdwmEL9JMaZhdhfjpIQoMipO4j2";
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
+
+const loginBox = document.getElementById("loginBox");
+const dashboard = document.getElementById("dashboard");
+const msg = document.getElementById("loginMsg");
+
+window.login = async function(){
+try{
+await signInWithEmailAndPassword(
+auth,
+document.getElementById("email").value,
+document.getElementById("password").value
+);
+}catch(e){
+msg.textContent = "Login হয়নি: "+e.message;
+}
+};
+
+window.logout = async function(){
+await signOut(auth);
+};
+
+onAuthStateChanged(auth, user=>{
+if(user && user.uid === ADMIN_UID){
+loginBox.classList.add("hidden");
+dashboard.classList.remove("hidden");
+loadBookings();
+}else{
+loginBox.classList.remove("hidden");
+dashboard.classList.add("hidden");
+if(user) signOut(auth);
+}
+});
+
+function loadBookings(){
+const area = document.getElementById("bookings");
+
+onSnapshot(collection(db,"bookings"),snapshot=>{
+document.getElementById("total").textContent=snapshot.size;
+area.innerHTML="";
+
+if(snapshot.empty){
+area.innerHTML="এখনো কোনো বুকিং নেই।";
+return;
+}
+
+snapshot.forEach(item=>{
+const b=item.data();
+const id=item.id;
+
+const div=document.createElement("div");
+div.className="booking";
+
+function addLine(label,value){
+const p=document.createElement("p");
+const strong=document.createElement("b");
+strong.textContent=label+": ";
+p.append(strong,document.createTextNode(value || "-"));
+div.appendChild(p);
+}
+
+addLine("নাম",b.name);
+addLine("ফোন",b.phone);
+addLine("ঠিকানা",b.address);
+addLine("কাজ",b.service);
+addLine("কাস্টমারের তারিখ",b.date);
+addLine("বিস্তারিত",b.details);
+addLine("বর্তমান স্ট্যাটাস",b.status);
+
+const date=document.createElement("input");
+date.type="date";
+date.value=b.workDate || "";
+div.appendChild(date);
+
+const status=document.createElement("select");
+["নতুন বুকিং","তারিখ নির্ধারিত","মিস্ত্রি যাবে","কাজ চলছে","কাজ সম্পন্ন","বাতিল"].forEach(s=>{
+const op=document.createElement("option");
+op.value=s;
+op.textContent=s;
+if((b.status || "নতুন বুকিং")===s)op.selected=true;
+status.appendChild(op);
+});
+div.appendChild(status);
+
+const save=document.createElement("button");
+save.textContent="আপডেট করুন";
+save.onclick=async()=>{
+try{
+await updateDoc(doc(db,"bookings",id),{
+workDate:date.value,
+status:status.value
+});
+alert("আপডেট হয়েছে");
+}catch(e){alert(e.message);}
+};
+div.appendChild(save);
+
+const del=document.createElement("button");
+del.textContent="বুকিং মুছুন";
+del.style.background="#bd3030";
+del.onclick=async()=>{
+if(confirm("বুকিং মুছে ফেলবেন?")){
+await deleteDoc(doc(db,"bookings",id));
+}
+};
+div.appendChild(del);
+
+area.appendChild(div);
+});
+},{error:e=>{
+area.textContent="বুকিং লোড হয়নি: "+e.message;
+}});
+}
+</script>
+</body>
+</html>
