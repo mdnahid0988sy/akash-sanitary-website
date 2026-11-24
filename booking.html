@@ -1,0 +1,123 @@
+
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>বুকিং স্ট্যাটাস - আকাশ স্যানিটারি</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial;background:#f1f5f9;color:#172033}
+header{background:#073b68;color:white;text-align:center;padding:22px}
+.container{max-width:650px;margin:25px auto;padding:12px}
+.card{background:white;padding:22px;border-radius:12px;box-shadow:0 3px 12px #0001}
+input{width:100%;padding:14px;border:1px solid #ccc;border-radius:8px;margin:10px 0;font-size:16px}
+button{width:100%;padding:14px;background:#087b51;color:white;border:0;border-radius:8px;font-size:17px;font-weight:bold}
+.result{margin-top:20px;padding:15px;background:#f1f6fa;border-radius:9px;display:none}
+.status{font-size:20px;font-weight:bold;color:#087b51}
+.row{padding:8px 0;border-bottom:1px solid #ddd}
+footer{text-align:center;padding:20px;color:#555}
+</style>
+</head>
+<body>
+
+<header>
+<h2>আকাশ স্যানিটারি ও টাইলস মিস্ত্রি</h2>
+<p>আপনার বুকিংয়ের অবস্থা দেখুন</p>
+</header>
+
+<div class="container">
+<div class="card">
+<h3>বুকিং স্ট্যাটাস চেক করুন</h3>
+<p>বুকিং করার পর পাওয়া Booking ID লিখুন।</p>
+
+<input id="bookingId" placeholder="আপনার Booking ID লিখুন">
+<button id="checkBtn">স্ট্যাটাস দেখুন</button>
+
+<p id="message"></p>
+
+<div class="result" id="result">
+<h3>আপনার বুকিং তথ্য</h3>
+<div class="row">নাম: <b id="name"></b></div>
+<div class="row">ফোন: <b id="phone"></b></div>
+<div class="row">ঠিকানা: <b id="address"></b></div>
+<div class="row">কাজ: <b id="service"></b></div>
+<div class="row">আপনার চাওয়া তারিখ: <b id="date"></b></div>
+<div class="row">মিস্ত্রি যাওয়ার তারিখ: <b id="workDate"></b></div>
+<div class="row">বর্তমান অবস্থা: <div class="status" id="status"></div></div>
+</div>
+</div>
+</div>
+
+<footer>
+© 2026 আকাশ স্যানিটারি ও টাইলস মিস্ত্রি
+</footer>
+
+<script type="module">
+import { initializeApp }
+from "https://www.gstatic.com/firebasejs/13.1.0/firebase-app.js";
+
+import {
+getFirestore,doc,getDoc
+} from "https://www.gstatic.com/firebasejs/13.1.0/firebase-firestore.js";
+
+const firebaseConfig = {
+apiKey: "AIzaSyBvDv-zJbn5tgFrTt0Y2XHhagRqpL1YPOo",
+authDomain: "akash-sanitary-18f8e.firebaseapp.com",
+projectId: "akash-sanitary-18f8e",
+storageBucket: "akash-sanitary-18f8e.firebasestorage.app",
+messagingSenderId: "356604373846",
+appId: "1:356604373846:web:d12ac29c648258668b44f7"
+};
+
+const app=initializeApp(firebaseConfig);
+const db=getFirestore(app);
+
+const btn=document.getElementById("checkBtn");
+const msg=document.getElementById("message");
+const result=document.getElementById("result");
+
+btn.addEventListener("click",async()=>{
+const id=document.getElementById("bookingId").value.trim();
+
+result.style.display="none";
+msg.textContent="";
+
+if(!id){
+msg.textContent="Booking ID লিখুন।";
+return;
+}
+
+btn.disabled=true;
+btn.textContent="খোঁজা হচ্ছে...";
+
+try{
+const snap=await getDoc(doc(db,"bookings",id));
+
+if(!snap.exists()){
+msg.textContent="এই Booking ID পাওয়া যায়নি।";
+}else{
+const b=snap.data();
+
+document.getElementById("name").textContent=b.name||"-";
+document.getElementById("phone").textContent=b.phone||"-";
+document.getElementById("address").textContent=b.address||"-";
+document.getElementById("service").textContent=b.service||"-";
+document.getElementById("date").textContent=b.date||"-";
+document.getElementById("workDate").textContent=b.workDate||"এখনো নির্ধারিত হয়নি";
+document.getElementById("status").textContent=b.status||"নতুন বুকিং";
+
+result.style.display="block";
+}
+}catch(e){
+console.error(e);
+msg.textContent="তথ্য পাওয়া যাচ্ছে না। Firebase Rules পরীক্ষা করুন।";
+}
+
+btn.disabled=false;
+btn.textContent="স্ট্যাটাস দেখুন";
+});
+</script>
+
+</body>
+</html>
